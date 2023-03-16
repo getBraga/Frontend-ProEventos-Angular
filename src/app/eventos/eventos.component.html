@@ -1,40 +1,47 @@
-  <!-- <h1>Eventos de Components</h1>
-<div *ngFor="let evento of eventos">
-  <p><b>Tema: </b>{{evento.tema}}</p>
-  <p><b>Local: </b>{{evento.local}}</p>
-  <hr>
-</div> -->
+
 <h2>Eventos</h2>
 <hr>
-<form action=""class="row g-3 mr-1 mb-2">
+<div class="row g-3 mr-1 mb-2">
 
 
     <div class="col-auto">
-      <input type="text" class="form-control mr-" placeholder="buscar">
+      <input
+      [(ngModel)]="filtrarLista"
+      type="text" class="form-control mr-" placeholder="buscar">
     </div>
 
     <div class="col-auto">
       <button class="btn btn-outline-success">Buscar</button>
     </div>
 
-</form>
+</div>
+<h3>Filtro: {{filtrarLista}}</h3>
 <table class="table table-stripped">
   <thead class="table-dark">
     <tr>
-      <th>#</th>
-      <th>Imagem</th>
-      <th>Tema</th>
-      <th>Local</th>
-      <th>Data</th>
-      <th>Qtd Pessoa</th>
-      <th>Lote</th>
-      <th>Opcões</th>
+      <th> <button type="button" class="btn btn-outline-light btn-sm"(click)="alterarImagem()">{{mostrarImagens ? "Ocultar": "Exibir"}}</button></th>
+      <th><span class="position-top-menos-3">#</span></th>
+      <th><span class="position-top-menos-3" >Tema</span></th>
+      <th><span class="position-top-menos-3">Local</span></th>
+      <th><span class="position-top-menos-3">Data</span></th>
+     <th><span class="position-top-menos-3">Qtd Pessoa </span></th>
+      <th><span class="position-top-menos-3">Lote </span></th>
+      <th><span class="position-top-menos-3">Opcões </span></th>
     </tr>
   </thead>
-  <tbody>
+  <tbody *ngIf="eventos && eventos.length; else eventoVazio" >
     <tr  *ngFor="let evento of eventos">
+      <th >
+        <img
+            [collapse]="!mostrarImagens"
+            [isAnimated]="true"
+            src="../../assets/image/{{evento.imagemURL}}"
+            [style.width.px] = "widthImg"
+            [style.margin.px] = "marginImg"
+
+          />
+       </th>
       <td>{{evento.eventoId}}</td>
-      <td>{{evento.imagemURL}}</td>
       <td>{{evento.tema}}</td>
       <td>{{evento.local}}</td>
       <td>{{evento.dataEvento}}</td>
@@ -43,6 +50,16 @@
       <td>{{evento.eventoId}}</td>
     </tr>
 
-
   </tbody>
+  <ng-template #eventoVazio>
+    <tfoot>
+      <tr>
+        <td colspan="8" class="text-center">
+          <h4>Nenhum evento encontrado</h4>
+        </td>
+      </tr>
+    </tfoot>
+</ng-template>
+
 </table>
+
