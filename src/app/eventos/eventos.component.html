@@ -6,7 +6,7 @@
 
     <div class="col-auto">
       <input
-      [(ngModel)]="filtrarLista"
+      [(ngModel)]="filtroLista"
       type="text" class="form-control mr-" placeholder="buscar">
     </div>
 
@@ -15,7 +15,6 @@
     </div>
 
 </div>
-<h3>Filtro: {{filtrarLista}}</h3>
 <table class="table table-stripped">
   <thead class="table-dark">
     <tr>
@@ -30,7 +29,7 @@
     </tr>
   </thead>
   <tbody *ngIf="eventos && eventos.length; else eventoVazio" >
-    <tr  *ngFor="let evento of eventos">
+    <tr  *ngFor="let evento of eventosFiltrados">
       <th >
         <img
             [collapse]="!mostrarImagens"
